@@ -1,3 +1,7 @@
+# Authors:
+# Bill Bosshard (12-933-255)
+# Lukas Vollenweider (13-751-888)
+
 import webbrowser
 
 userinput = raw_input("Bitte gebe ein deutsches Wort ein, Abbruch mit 'q': ")
