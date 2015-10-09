@@ -1,3 +1,7 @@
+# Authors:
+# Bill Bosshard (12-933-255)
+# Lukas Vollenweider (13-751-888)
+
 a = float(raw_input("Bitte geben Sie den a-Wert ein: "))
 b = float(raw_input("Bitte geben Sie den b-Wert ein: "))
 c = float(raw_input("Bitte geben Sie den c-Wert ein: "))
