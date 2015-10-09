@@ -1,3 +1,7 @@
+# Authors:
+# Bill Bosshard (12-933-255)
+# Lukas Vollenweider (13-751-888)
+
 usrinpt = raw_input("Bitte taetigen Sie eine Eingabe (min. 5 Zeichen): ")
 
 counter = 2
