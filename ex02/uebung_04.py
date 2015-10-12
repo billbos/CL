@@ -17,10 +17,10 @@ print substring
 #																					  	#
 #	a) Wenn die Eingabe weniger als 5 Zeichen besitzt, gibt es eine Fehlermeldung	  	#
 #																					  	#
-#	b) Nachdem der User eine Eingabe getätigt hat, wird diese mit einem if überprüft    #
+#	b) Nachdem der User eine Eingabe getaetigt hat, wird diese mit einem if ueberprueft #
 #	   if (len(usrinpt) < 5):														  	#
 #			usrinpt = raw:input("Eingabe zu kurz: Neue Eingabe mit MIN. 5 Zeichen: ") 	#
 #	   else:																			#
-#			führt die Programmlogik ab counter = 2 aus									#															
+#			fuehrt die Programmlogik ab counter = 2 aus									#															
 #	   																					#
 #########################################################################################
