@@ -21,6 +21,6 @@ print substring
 #	   if (len(usrinpt) < 5):														  	#
 #			usrinpt = raw:input("Eingabe zu kurz: Neue Eingabe mit MIN. 5 Zeichen: ") 	#
 #	   else:																			#
-#			fuehrt die Programmlogik ab counter = 2 aus									#															
+#			fuehrt die Programmlogik ab counter = 2 (Zeile 7) aus						#															
 #	   																					#
 #########################################################################################

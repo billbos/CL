@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 # Authors:
 # Bill Bosshard (12-933-255)
 # Lukas Vollenweider (13-751-888)
 
+#Eingabe wird zu float konventiert, damit x und y nachher auch floatergebnisse sind
 a = float(raw_input("Bitte geben Sie den a-Wert ein: "))
 b = float(raw_input("Bitte geben Sie den b-Wert ein: "))
 c = float(raw_input("Bitte geben Sie den c-Wert ein: "))
@@ -22,8 +24,8 @@ print y
 #																	  					#
 #	b) Bei einem integer werden alle Nachkommazahlen abgeschnitten. 				    #
 #	   Beispiel: 3/2 = 1 und nicht 1.5 da .5 abgeschnitten wird. 					  	#
-#	   Das führt zu ungenauen und auch falschen Ergebnissen. 							#
+#	   Das fuehrt zu ungenauen und auch falschen Ergebnissen. 							#
 #	   Deshalb sollte man Gleitkommazahlen für Bruchrechnungen verwenden, wenn man 		#
-#	   genaue Lösungen braucht. 														#																			#
+#	   genaue Loesungen braucht. 														#																			#
 #	   																					#
 #########################################################################################
