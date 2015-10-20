@@ -12,3 +12,36 @@ for i in range(301):
 	numbers.append(random.randint(1,600))
 
 #Dein Code
+even = []
+odd = []
+for i in numbers:
+	if (i % 2 == 0):
+		even.append(i)
+	else:
+		odd.append(i)
+
+print "# even numbers: "
+print len(even)
+
+print "# odd numbers: "
+print len(odd)
+
+evenSorted = sorted(even, reverse = True)
+oddSorted = sorted(odd, reverse = True)
+
+sumEven = 0
+print "largest even numbers:"
+for i in range(0,5):
+	sumEven = sumEven + evenSorted[i]
+	print evenSorted[i]
+
+sumOdd = 0
+print "largest odd numbers:"
+for i in range(0,5):
+	sumOdd = sumOdd + oddSorted[i]
+	print oddSorted[i]
+
+if (sumEven > sumOdd):
+	print "the sum of the even numbers is larger:", sumEven
+else:
+	print "the sum of the odd numbers is larger:", sumOdd
