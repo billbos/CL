@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #PCL I, Übung 3, HS15
-#Aufgabe 2
-#Autor: dein_name
-#Matrikel-Nr.: deine_matrikel
+#Aufgabe 2.1
+#Autor: Bill Bosshard
+#Matrikel-Nr.: 12-933-255
+#Autor: Lukas Vollenweider
+#Matrikel-Nr.: 13-751-888
 
 import random
 #kreiert eine Liste mit 300 randomisierten Zahlen zwischen 1 und 600
@@ -26,6 +28,7 @@ print len(even)
 print "# odd numbers: "
 print len(odd)
 
+#since we have to sort them in descending order, we have to set reverse = true
 evenSorted = sorted(even, reverse = True)
 oddSorted = sorted(odd, reverse = True)
 
