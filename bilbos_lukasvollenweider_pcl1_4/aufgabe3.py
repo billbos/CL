@@ -13,6 +13,7 @@ import operator
 
 file1 = sys.argv[1]
 file2 = sys.argv[2]
+sorting = sys.argv[3]
 
 #{word:#_of_occurrences}
 words_from_file1 = {}
@@ -43,16 +44,13 @@ def sort_hash(hash, sort_type):
 	return sorted(hash.items(), key = operator.itemgetter(sorting_key))
 
 def compareTwoHashes(hash1, hash2):
-	#we first sort the two hashs by alphabetical order
+	#we first sort the two hashs by alphabetical order since comparing tuples is faster
+	#than comparing hashes
 	sorted_hash1 = sort_hash(hash1, "key")
 	sorted_hash2 = sort_hash(hash2, "key")
 
 	for item1 in sorted_hash1:
 		for item2 in sorted_hash2:
-			#since our hashes are sorted, we can stop our second for loop if the 
-			#first letter from item2 is not equal to the first letter of item1
-			if (item2[0][0:1] != item1[0][0:1]):
-				break
 			if (item2[0] == item1[0]):
 				word_count = 0
 				#if the items are equal, we check in which hash the word
@@ -69,6 +67,8 @@ if __name__ == "__main__":
 
 	compareTwoHashes(words_from_file1, words_from_file2)
 
+	sorted_result = sort_hash(words_from_both, sorting)
+
 	print "Following words appear in both files:"
-	for key, value in words_from_both.items():
-		print key + ":", value
+	for item in sorted_result:
+		print item[0] + ":", item[1]
