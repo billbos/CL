@@ -14,7 +14,7 @@ import operator
 file1 = sys.argv[1]
 file2 = sys.argv[2]
 #has to be either "key" or "value"
-sorting = sys.argv[3]
+sorting_mode = sys.argv[3]
 
 #{word:#_of_occurrences}
 words_from_file1 = {}
@@ -27,8 +27,6 @@ words_from_both = {}
 def read_words_from_file_into_hash(file, hash):
 	for line in open(file, 'r'):
 		for word in line.split():
-			#we already count the number of occurrences of the words
-			#because it saves us a lot of time afterwards
 			if (hash.has_key(word)):
 				hash[word] = hash[word] + 1
 			else:
@@ -45,22 +43,9 @@ def sort_hash(hash, sort_type):
 	return sorted(hash.items(), key = operator.itemgetter(sorting_key))
 
 def compareTwoHashes(hash1, hash2):
-	#we first sort the two hashs by alphabetical order since comparing tuples is faster
-	#than comparing hashes
-	sorted_hash1 = sort_hash(hash1, "key")
-	sorted_hash2 = sort_hash(hash2, "key")
-
-	for item1 in sorted_hash1:
-		for item2 in sorted_hash2:
-			if (item2[0] == item1[0]):
-				word_count = 0
-				#if the items are equal, we check in which hash the word
-				#appears less often. This is the value we need for word_count
-				if (item2[1] > item1[1]):
-					word_count = item1[1]
-				else:
-					word_count = item2[1]
-				words_from_both[item2[0]] = word_count
+	for key1, value1 in hash1.items():
+		if (hash2.has_key(key1)):				
+			words_from_both[key1] = words_from_file1[key1] + words_from_file2[key1]
 
 if __name__ == "__main__":
 	read_words_from_file_into_hash(file1, words_from_file1)
@@ -68,8 +53,10 @@ if __name__ == "__main__":
 
 	compareTwoHashes(words_from_file1, words_from_file2)
 
-	sorted_result = sort_hash(words_from_both, sorting)
-
+	sorted_result = sort_hash(words_from_both, sorting_mode)
+	#Annahme: Häufigkeiten --> Häufigkeit in file 1 und file 2 sollen getrennt dargestellt werden
+	#Zum sortieren wird jedoch die kombinierte Häufigkeit verwendet
 	print "Following words appear in both files:"
 	for item in sorted_result:
-		print item[0] + ":", item[1]
+		number_of_spaces = len(item[0])
+		print item[0] + ": # of occurences in File1:", words_from_file1[item[0]], "\n" + ' ' * number_of_spaces," # of occurrences in File2:", words_from_file2[item[0]]
