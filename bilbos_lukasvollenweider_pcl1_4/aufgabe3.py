@@ -13,6 +13,7 @@ import operator
 
 file1 = sys.argv[1]
 file2 = sys.argv[2]
+#has to be either "key" or "value"
 sorting = sys.argv[3]
 
 #{word:#_of_occurrences}
