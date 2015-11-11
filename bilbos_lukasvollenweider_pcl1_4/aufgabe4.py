@@ -80,7 +80,7 @@ def tag_word(word):
 			#check which one occurred the most and choose it as guess
 			tag_with_highest_possibility = 0
 			for i in range(0, len(database[word])):
-				if database[word][i][1] > database[word][tag_with_highest_possibility][i]:
+				if database[word][i][1] > database[word][tag_with_highest_possibility][1]:
 					tag_with_highest_possibility = i;
 			checkTag(word, tag_with_highest_possibility)
 		elif (len(database[word]) == 1):
@@ -98,7 +98,7 @@ def tag_word(word):
 					solution = raw_input("Please enter the correct STTS-Tag: ")
 					database[word] = (solution.upper(), 1)
 					return (word, solution.upper())
-		else:
+		elif result_tag is None:
 			solution = raw_input("Please enter the correct STTS-Tag: ")
 			database[word] = (solution.upper(), 1)
 			return (word, solution.upper())
@@ -106,21 +106,28 @@ def tag_word(word):
 def print_sentence(sentence):
 	for word in sentence:
 		sys.stdout.write(word[0] + '\\' + word[1] + " ")
-	sys.stdout.write(".\\$.\n")
+	sys.stdout.write("\n")
 
-def read_sentence(sentences):
+def read_sentence(source, mode):
 	#Annahme: Keine Abkürzungen
-	for sentence in sentences.split('.'):
+	output = []
+	text = ""
+	if mode == "--file":
+		text = open(source, 'r').read()
+	else:
+		text = source
+	for sentence in text.split('.'):
+		print sentence
 		annotated_sentence = []
 		for word in sentence.split(' '):
-			annotated_sentence.append(tag_word(word))
-		print_sentence(annotated_sentence)
+			if re.search(r"^\w+$", word):
+				annotated_sentence.append(tag_word(word))
+		output.append(annotated_sentence)
 
+	for sentence in output:
+		print_sentence(sentence)
+			
 
 if __name__ == "__main__":
 	parseDatabase(database_path)
-
-	if mode == "--file":
-		read_sentence(open(source, 'r'))
-	else:
-		read_sentence(source)
+	read_sentence(source, mode)
