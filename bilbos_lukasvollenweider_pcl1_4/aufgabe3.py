@@ -26,7 +26,9 @@ words_from_both = {}
 
 def read_words_from_file_into_hash(file, hash):
 	for line in open(file, 'r'):
+		#we split the line at the spaces to get the single words
 		for word in line.split():
+			#we add the # of occurrences to the hash for each word
 			if (hash.has_key(word)):
 				hash[word] = hash[word] + 1
 			else:
@@ -42,8 +44,11 @@ def sort_hash(hash, sort_type):
 	#otherwise it is sorted by numeric order
 	return sorted(hash.items(), key = operator.itemgetter(sorting_key))
 
+
 def compareTwoHashes(hash1, hash2):
 	for key1, value1 in hash1.items():
+		#if we find the word from hash1 in hash2
+		#we add both # of occurrences and save the result in a new hash
 		if (hash2.has_key(key1)):				
 			words_from_both[key1] = words_from_file1[key1] + words_from_file2[key1]
 

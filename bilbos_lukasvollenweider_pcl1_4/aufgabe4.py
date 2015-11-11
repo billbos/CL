@@ -11,7 +11,9 @@ import operator
 import re 
 
 database_path = sys.argv[2]
+#either --file or --text
 mode = sys.argv[3]
+#either a file or a string
 source = sys.argv[4]
 database = {}
 
@@ -27,6 +29,10 @@ def parseDatabase(path):
 		word = words[0]
 		tags = words[1].split('|')
 		for tag in tags:
+			#we check how often a token was used
+			#if there isn't a number, we assume it was used once
+			#we save the word with the number in a tuple to be able
+			#to access it later
 			occurrences = re.search(r"\d+", str(tag))
 			if occurrences is not None:
 				extended_tags.append((re.search(r"[A-Z]+", str(tag)).group(0), int(occurrences.group(0))))
@@ -34,15 +40,26 @@ def parseDatabase(path):
 				extended_tags.append((re.search(r"[A-Z]+", str(tag)).group(0), 1))
 		database[word] = extended_tags
 
+#we ask the user every time we assume a tag
+#even if it is already in the database because there could be
+#a second possibility for the current word
+#this method is only for words which are already in the database
 def checkTag(word, tag):
 	print "Is '" + word + "' a", database[word][tag][0] + "?"
+	#we ask the user for confirmation in a while loop to trap him
+	#until he gives a correct input
 	while True:
 		userinput = raw_input("Is this guess correct? ('Y' for yes, 'N' for no): ")
 		if userinput == "Y":
+			#if our guess was correct, we increase the counter by 1 and return the word with the new counter
 			database[word][tag] = (database[word][tag][0],database[word][tag][1] + 1)
 			return (word, tag)
 		elif userinput == "N":
+			#if our guess was not correct, we ask the user for the solution
 			solution = raw_input("Please enter the correct STTS-Tag: ")
+			#we check if the solution tag is already in our database
+			#if yes, we increase the counter
+			#if not, we create a new tag for the word
 			for i in range(0, len(database[word])):
 				if database[word][i][0] == solution.upper():
 					database[word][i] = (database[word][i][0], database[word][i][1] + 1)
@@ -51,9 +68,14 @@ def checkTag(word, tag):
 				return (word, solution.upper())
 
 def analyse_word(word):
-	#Kriterien stammen teilweise von Übung 2 - Musterlösungen
+	#Critera are partly from the solutions of assignment 2
 	regex_pattern = []
 
+	#we add the regex pattern to a list to be able to iterate through it
+	#one can influence the result by appending the tags with a higher possibility
+	#before the tags with a low possibility
+	#we also append the tag as part of the tuple to be able to easily return the tag
+	#if we get a match
 	regex_pattern.append((r"^\d+$", "CARD"))
 	regex_pattern.append((r"^(der|die|das|eine?n?)$", "ART"))
 	regex_pattern.append((r"^(und|oder|aber)$", "KON"))
@@ -77,7 +99,7 @@ def tag_word(word):
 	if (database.has_key(word)):
 		#check if there are more than one possibility
 		if len(database[word]) > 1:
-			#check which one occurred the most and choose it as guess
+			#check which tag has the highest counter and choose it as guess
 			tag_with_highest_possibility = 0
 			for i in range(0, len(database[word])):
 				if database[word][i][1] > database[word][tag_with_highest_possibility][1]:
@@ -87,6 +109,9 @@ def tag_word(word):
 			checkTag(word, 0)
 	else:
 		result_tag = analyse_word(word)
+		#if we get a match, we ask if our guess is correct
+		#and add either the guess if it was correct
+		#or the solution if it was not correct to the database
 		if result_tag is not None:
 			print "Is '" + word + "' a", result_tag + "?"
 			while True:
@@ -96,30 +121,40 @@ def tag_word(word):
 					return (word, result_tag)
 				elif userinput == "N":
 					solution = raw_input("Please enter the correct STTS-Tag: ")
+					#we use upper() to cast lowercase letters to uppercase
 					database[word] = (solution.upper(), 1)
 					return (word, solution.upper())
+		#if we did not get a match, we ask for the solution
 		elif result_tag is None:
 			solution = raw_input("Please enter the correct STTS-Tag: ")
 			database[word] = (solution.upper(), 1)
 			return (word, solution.upper())
 
 def print_sentence(sentence):
+	#we print each sentence in the following format:
+	#word\tag word\tag word\tag
 	for word in sentence:
 		sys.stdout.write(word[0] + '\\' + word[1] + " ")
 	sys.stdout.write("\n")
 
 def read_sentence(source, mode):
 	#Annahme: Keine Abkürzungen
+	#contains all sentences
 	output = []
 	text = ""
 	if mode == "--file":
 		text = open(source, 'r').read()
 	else:
 		text = source
+	#we assume that our text does not have any abbreviations
 	for sentence in text.split('.'):
 		print sentence
+		#contains current sentence
 		annotated_sentence = []
 		for word in sentence.split(' '):
+			#there is a bug after a newline char where 
+			#the first word in the second sentence is empty
+			#therefore we check with regex if our word is actually a word
 			if re.search(r"^\w+$", word):
 				annotated_sentence.append(tag_word(word))
 		output.append(annotated_sentence)
