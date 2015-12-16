@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#PCL I, Übung 6, HS15
+#Aufgabe 1.1
+#Autor: Bill Bosshard
+#Matrikel-Nr.: 12-933-255
+#Autor: Lukas Vollenweider
+#Matrikel-Nr.: 13-751-888
+
 import codecs
 
 class SACTriple(object):
@@ -129,16 +138,3 @@ class SACTriple(object):
         """
         
         return self.pos_dict[self.pos]
-
-def main():
-    pos_dict = {}
-    with codecs.open("pos2upos.tsv") as pos_tbl:
-        for line in pos_tbl:
-            l = line.split()
-            pos_dict[l[0]] = l[1]
-
-    st = SACTriple(u"hat VAFIN haben", pos_dict)
-    print st
-
-if __name__ == "__main__":
-    main()

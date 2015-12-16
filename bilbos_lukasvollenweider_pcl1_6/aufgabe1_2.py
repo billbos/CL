@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#PCL I, Übung 6, HS15
+#Aufgabe 1.2
+#Autor: Bill Bosshard
+#Matrikel-Nr.: 12-933-255
+#Autor: Lukas Vollenweider
+#Matrikel-Nr.: 13-751-888
+
 import unicodedata
 
 class Normalstring(object):
